@@ -66,11 +66,15 @@ class Embeds:
         }
         for pb in pb_list:
             value_lines = []
-            current_rank = 1
+            rank = 1
             prev_metric = None
-            for i, sub in enumerate(pb.submissions, 1):
+            display_count = 0
+            max_rank = pb.placements_to_show
+            for sub in pb.submissions:
                 if prev_metric is not None and sub["metric"] != prev_metric:
-                    current_rank = i
+                    rank = display_count + 1
+                if rank > max_rank:
+                    break
                 date_str = (
                     sub["create_time"].strftime("%Y-%m-%d")
                     if sub["create_time"]
@@ -82,12 +86,13 @@ class Embeds:
                     if pb.is_time_based
                     else sub["metric"]
                 )
-                trophy = trophy_emojis.get(current_rank, "")
+                trophy = trophy_emojis.get(rank, "")
                 line = f"> {trophy} **{metric}** • {players} • {date_str}"
                 if sub.get("imgur_url"):
                     line += " [(proof)](" + sub["imgur_url"] + ")"
                 value_lines.append(line)
                 prev_metric = sub["metric"]
+                display_count += 1
             embed.add_field(
                 name=f"{pb.activity_name} {pb.emoji}",
                 value="\n".join(value_lines) or "No submissions",
