@@ -64,6 +64,7 @@ class Embeds:
             2: "<:2ndplace:1514784692996669490>",
             3: "<:3rdplace:1514784698692276426>",
         }
+        print("pb list", pb_list)
         for pb in pb_list:
             value_lines = []
             rank = 1
