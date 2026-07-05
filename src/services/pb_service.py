@@ -91,14 +91,19 @@ def get_top_pbs_for_category(category: int):
                 is_time_based=activity.is_time_based,
             )
 
-            # Get the top approved submissions
+            # Determine the sorting order dynamically based on the activity type
+            if pb_display.is_time_based:
+                order_clause = Submission.metric.asc()
+            else:
+                order_clause = Submission.metric.desc()
+
             top_submissions = (
                 db.query(Submission)
                 .filter(
                     Submission.activity == activity.id,
                     Submission.is_approved,
                 )
-                .order_by(Submission.metric.asc())
+                .order_by(order_clause)
                 .limit(pb_display.placements_to_show)
                 .all()
             )
