@@ -55,97 +55,123 @@ class SubmissionCog(commands.Cog):
         image: discord.Attachment,
     ):
         # Get the activity from the db
-        db: Session = next(get_db())
         try:
-            activity_record = (
-                db.query(Activity)
-                .filter(Activity.activity_name.ilike(activity))
-                .first()
-            )
-        except Exception as e:
-            await interaction.response.send_message("Error", e)
-
-        changelog_channel_id = os.getenv("CHANGELOG_CHANNEL")
-        changelog_channel = self.bot.get_channel(int(changelog_channel_id))
-
-        if activity_record.is_time_based:
-            is_valid, int_metric = time_service.is_valid_time_format(pb_obtained)
-
-            if not is_valid:
-                await interaction.response.send_message(
-                    "Invalid time format. Please use MM:ss.ms format and make sure the time is divisible by 0.6.",
-                    ephemeral=True,
-                )
-                return
-        else:
+            db: Session = next(get_db())
             try:
-                int_metric = int(pb_obtained)
-                if int_metric < 0:
-                    raise ValueError("Metric must be a non-negative integer.")
-            except ValueError:
+                activity_record = (
+                    db.query(Activity)
+                    .filter(Activity.activity_name.ilike(activity))
+                    .first()
+                )
+            except Exception as e:
+                await interaction.response.send_message("Error", e)
+
+            changelog_channel_id = os.getenv("CHANGELOG_CHANNEL")
+            changelog_channel = self.bot.get_channel(int(changelog_channel_id))
+
+            if activity_record.is_time_based:
+                is_valid_time, int_metric = time_service.is_valid_time_format(
+                    pb_obtained
+                )
+
+                if not is_valid_time:
+                    await interaction.response.send_message(
+                        "Invalid time format. Please use MM:ss.ms format and make sure the time is divisible by 0.6.",
+                        ephemeral=True,
+                    )
+                    return
+            else:
+                try:
+                    int_metric = int(pb_obtained)
+                    if int_metric < 0:
+                        raise ValueError("Metric must be a non-negative integer.")
+                except ValueError:
+                    await interaction.response.send_message(
+                        "Invalid metric. Please provide a non-negative integer.",
+                        ephemeral=True,
+                    )
+                    return
+
+            # Check if the PB would be a new placement for the activity (top n)
+            new_placement = pb_service.get_placement_for_activity(
+                activity_id=activity_record.id,
+                metric=int_metric,
+                is_time_based=activity_record.is_time_based,
+            )
+
+            if new_placement > activity_record.placements_to_show:
                 await interaction.response.send_message(
-                    "Invalid metric. Please provide a non-negative integer.",
+                    f"Submission blocked. Unfortunately it would not place in the top {activity_record.placements_to_show} for this activity.",
                     ephemeral=True,
                 )
                 return
 
-        await interaction.response.send_message(
-            f"Thanks! Your submission has been sent for approval! Once it's approved, it will show up in {changelog_channel.jump_url}",
-            ephemeral=True,
-        )
-
-        if image:
-            if not image.content_type.startswith("image/"):
-                await interaction.response.send_message(
-                    "Invalid image type. Please upload a valid image.", ephemeral=True
-                )
-                return
-
-            imgur_client = pyimgur.Imgur(os.getenv("IMGUR_CLIENT_ID"))
-            test = imgur_client.upload_image(
-                url=image.url,
-                title=f"PB Submission for {activity} by {interaction.user.name}",
-            )
-            imgur_link = test.link
-
-        id = pb_service.create_pb_submission(
-            metric=int_metric,
-            activity=activity,
-            players_string=player_names,
-            imgur_link=imgur_link if image else "",
-        )
-
-        approval_channel_id = os.getenv("APPROVAL_CHANNEL")
-        if not approval_channel_id:
             await interaction.response.send_message(
-                "APPROVAL_CHANNEL is not configured in .env.", ephemeral=True
-            )
-            return
-
-        approval_channel = self.bot.get_channel(int(approval_channel_id))
-        if not approval_channel:
-            await interaction.response.send_message(
-                f"Approval channel not found in the server (<{approval_channel_id}>). Please check the configuration.",
+                f"Thanks! Your submission has been sent for approval! Once it's approved, it will show up in {changelog_channel.jump_url}",
                 ephemeral=True,
             )
 
-        embed = Embed(
-            title="New PB Submission",
-        )
+            if image:
+                if not image.content_type.startswith("image/"):
+                    await interaction.response.send_message(
+                        "Invalid image type. Please upload a valid image.",
+                        ephemeral=True,
+                    )
+                    return
 
-        embed.color = discord.Color.yellow()
+                imgur_client = pyimgur.Imgur(os.getenv("IMGUR_CLIENT_ID"))
+                test = imgur_client.upload_image(
+                    url=image.url,
+                    title=f"PB Submission for {activity} by {interaction.user.name}",
+                )
+                imgur_link = test.link
 
-        embed.add_field(name="Activity", value=activity, inline=False)
-        embed.add_field(name="PB Obtained", value=pb_obtained, inline=False)
-        embed.add_field(name="Player(s)", value=player_names, inline=False)
+            id = pb_service.create_pb_submission(
+                metric=int_metric,
+                activity=activity,
+                players_string=player_names,
+                imgur_link=imgur_link if image else "",
+            )
 
-        if image:
-            embed.set_image(url=imgur_link)
+            approval_channel_id = os.getenv("APPROVAL_CHANNEL")
+            if not approval_channel_id:
+                await interaction.response.send_message(
+                    "APPROVAL_CHANNEL is not configured in .env.", ephemeral=True
+                )
+                return
 
-        embed.set_footer(text=id)
-        message = await approval_channel.send(embed=embed)
-        await message.add_reaction("✅")
-        await message.add_reaction("❌")
+            approval_channel = self.bot.get_channel(int(approval_channel_id))
+            if not approval_channel:
+                await interaction.response.send_message(
+                    f"Approval channel not found in the server (<{approval_channel_id}>). Please check the configuration.",
+                    ephemeral=True,
+                )
+
+            embed = Embed(
+                title="New PB Submission",
+            )
+
+            embed.color = discord.Color.yellow()
+
+            embed.add_field(name="Activity", value=activity, inline=False)
+            embed.add_field(name="PB Obtained", value=pb_obtained, inline=False)
+            embed.add_field(name="Player(s)", value=player_names, inline=False)
+
+            if image:
+                embed.set_image(url=imgur_link)
+
+            embed.set_footer(text=id)
+            message = await approval_channel.send(embed=embed)
+            await message.add_reaction("✅")
+            await message.add_reaction("❌")
+        except Exception as e:
+            self.logger.error(f"Error in submit_a_pb command: {e}")
+            await interaction.response.send_message(
+                "An error occurred while processing your submission. Please try.",
+                ephemeral=True,
+            )
+        finally:
+            db.close()
 
     @app_commands.command(
         name="list_activities", description="Show all activities stored in the database"
