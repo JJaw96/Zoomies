@@ -64,15 +64,15 @@ class Embeds:
 
         embed.set_footer(text="")
 
+        trophy_emojis = {
+            1: "<:1stplace:1514784685295927435>",
+            2: "<:2ndplace:1514784692996669490>",
+            3: "<:3rdplace:1514784698692276426>",
+        }
+
         for pb in pb_list:
             value_lines = []
 
-            trophy_emojis = {
-                1: "<:1stplace:1514784685295927435>",
-                2: "<:2ndplace:1514784692996669490>",
-                3: "<:3rdplace:1514784698692276426>",
-            }
-            # Show existing submissions
             for i, sub in enumerate(pb.submissions[: pb.placements_to_show], 1):
                 date_str = (
                     sub["create_time"].strftime("%Y-%m-%d")

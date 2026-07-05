@@ -70,7 +70,7 @@ class PbDisplay:
 def get_top_pbs_for_category(category: int):
     """
     Retrieves the top 3 approved submissions for each activity
-    within the specified category.
+    within the specified category and returns a list of PbDisplay objects.
     """
     db: Session = next(get_db())
 
@@ -81,15 +81,17 @@ def get_top_pbs_for_category(category: int):
             key=lambda x: x.id,
         )
 
-        # Initialize display dictionary with activity names as keys
-        # Each value will be a list of up to 3 submission dictionaries
-        # display = {activity.activity_name: [] for activity in activities}
         pbs = []
 
         for activity in activities:
-            pb_category = PbDisplay("", "", activity.placements_to_show, True)
+            pb_display = PbDisplay(
+                activity_name=activity.activity_name,
+                emoji=activity.emoji,
+                placements_to_show=activity.placements_to_show,
+                is_time_based=activity.is_time_based,
+            )
 
-            # Get the top 3 approved submissions, newest first
+            # Get the top approved submissions
             top_submissions = (
                 db.query(Submission)
                 .filter(
@@ -97,11 +99,11 @@ def get_top_pbs_for_category(category: int):
                     Submission.is_approved,
                 )
                 .order_by(Submission.metric.asc())
-                .limit(pb_category.placements_to_show)
+                .limit(pb_display.placements_to_show)
                 .all()
             )
 
-            # Build list of submission data
+            # Build list of submission data dictionaries
             submission_list = []
             for submission in top_submissions:
                 submission_list.append(
@@ -113,14 +115,8 @@ def get_top_pbs_for_category(category: int):
                     }
                 )
 
-            # Assign the list (empty if no submissions)
-            pbs.append(
-                (
-                    submission_list,
-                    activity.emoji,
-                    pb_category.placements_to_show,
-                )
-            )
+            pb_display.submissions = submission_list
+            pbs.append(pb_display)
 
         return pbs
 
