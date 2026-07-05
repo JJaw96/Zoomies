@@ -108,6 +108,17 @@ def get_top_pbs_for_category(category: int):
                 .all()
             )
 
+            # Allow tied pbs
+            ranked = []
+            current_rank = 1
+            prev_metric = None
+            for i, sub in enumerate(top_submissions, 1):
+                if prev_metric is not None and sub.metric != prev_metric:
+                    current_rank = i
+                sub.rank = current_rank
+                ranked.append(sub)
+                prev_metric = sub.metric
+
             # Build list of submission data dictionaries
             submission_list = []
             for submission in top_submissions:
