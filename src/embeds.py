@@ -1,5 +1,7 @@
 import discord
 
+from services.pb_service import PbDisplay
+
 
 class Embeds:
     def the_hunt_winners():
@@ -54,7 +56,7 @@ class Embeds:
 
         return embed
 
-    def pb_category(display: dict):
+    def pb_category(pb_list: list[PbDisplay]):
         embed = discord.Embed(
             title="",
             timestamp=discord.utils.utcnow(),
@@ -62,7 +64,7 @@ class Embeds:
 
         embed.set_footer(text="")
 
-        for activity_name, (submissions, emoji, amount_to_display) in display.items():
+        for pb in pb_list:
             value_lines = []
 
             trophy_emojis = {
@@ -71,14 +73,19 @@ class Embeds:
                 3: "<:3rdplace:1514784698692276426>",
             }
             # Show existing submissions
-            for i, sub in enumerate(submissions[:amount_to_display], 1):
+            for i, sub in enumerate(pb.submissions[: pb.placements_to_show], 1):
                 date_str = (
                     sub["create_time"].strftime("%Y-%m-%d")
                     if sub["create_time"]
                     else "-"
                 )
                 players = sub["players"] or "Unknown"
-                metric = convert_game_ticks_to_time(sub["metric"])
+
+                # Convert metric to time if is_time_based is True
+                if pb.is_time_based:
+                    metric = convert_game_ticks_to_time(sub["metric"])
+                else:
+                    metric = sub["metric"]
 
                 # trophy emoji
                 line = f"> {trophy_emojis.get(i, '')} **{metric}** • {players} • {date_str}"
@@ -89,11 +96,11 @@ class Embeds:
                 value_lines.append(line)
 
             # Fill remaining slots up to 3
-            for i in range(len(submissions) + 1, amount_to_display + 1):
+            for i in range(len(pb.submissions) + 1, pb.placements_to_show + 1):
                 value_lines.append(f"> {trophy_emojis.get(i, '')} -")
 
             embed.add_field(
-                name=f"{activity_name} {emoji}",
+                name=f"{pb.activity_name} {pb.emoji}",
                 value="\n".join(value_lines),
                 inline=False,
             )
@@ -106,6 +113,7 @@ class Embeds:
         metric: str,
         imgur_url: str,
         leaderboard_url: str,
+        is_time_based: bool,
         new_placement: int | None,
     ):
         embed = discord.Embed(
@@ -127,7 +135,7 @@ class Embeds:
         # TODO - Time or integer
         embed.add_field(
             name="PB",
-            value=convert_game_ticks_to_time(metric),
+            value=convert_game_ticks_to_time(metric) if is_time_based else metric,
         )
 
         embed.add_field(

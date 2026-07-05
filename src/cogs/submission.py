@@ -52,7 +52,7 @@ class SubmissionCog(commands.Cog):
         activity: str,
         pb_obtained: str,
         player_names: str,
-        image: discord.Attachment | None = None,
+        image: discord.Attachment,
     ):
         # Get the activity from the db
         db: Session = next(get_db())

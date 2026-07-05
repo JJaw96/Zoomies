@@ -126,6 +126,7 @@ class ApprovalCog(commands.Cog):
                     metric=submission.metric,
                     imgur_url=submission.imgur_url,
                     leaderboard_url=leaderboard_message.jump_url,
+                    is_time_based=activity.is_time_based,
                     new_placement=new_placement,
                 )
             )

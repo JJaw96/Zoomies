@@ -52,6 +52,21 @@ def approve_or_deny_pb_submission(submission_id: int, is_approved: bool):
         return False
 
 
+class PbDisplay:
+    def __init__(
+        self,
+        activity_name: str,
+        emoji: str,
+        placements_to_show: int = 3,
+        is_time_based: bool = True,
+    ):
+        self.activity_name = activity_name
+        self.emoji = emoji
+        self.is_time_based = is_time_based
+        self.placements_to_show = placements_to_show
+        self.submissions = []
+
+
 def get_top_pbs_for_category(category: int):
     """
     Retrieves the top 3 approved submissions for each activity
@@ -65,12 +80,14 @@ def get_top_pbs_for_category(category: int):
             db.query(Activity).filter(Activity.category == category).all(),
             key=lambda x: x.id,
         )
+
         # Initialize display dictionary with activity names as keys
         # Each value will be a list of up to 3 submission dictionaries
-        display = {activity.activity_name: [] for activity in activities}
+        # display = {activity.activity_name: [] for activity in activities}
+        pbs = []
 
         for activity in activities:
-            amount_to_display = activity.placements_to_show
+            pb_category = PbDisplay("", "", activity.placements_to_show, True)
 
             # Get the top 3 approved submissions, newest first
             top_submissions = (
@@ -80,7 +97,7 @@ def get_top_pbs_for_category(category: int):
                     Submission.is_approved,
                 )
                 .order_by(Submission.metric.asc())
-                .limit(amount_to_display)
+                .limit(pb_category.placements_to_show)
                 .all()
             )
 
@@ -97,13 +114,15 @@ def get_top_pbs_for_category(category: int):
                 )
 
             # Assign the list (empty if no submissions)
-            display[activity.activity_name] = (
-                submission_list,
-                activity.emoji,
-                amount_to_display,
+            pbs.append(
+                (
+                    submission_list,
+                    activity.emoji,
+                    pb_category.placements_to_show,
+                )
             )
 
-        return display
+        return pbs
 
     finally:
         db.close()
