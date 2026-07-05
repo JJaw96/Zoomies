@@ -57,54 +57,42 @@ class Embeds:
         return embed
 
     def pb_category(pb_list: list[PbDisplay]):
-        embed = discord.Embed(
-            title="",
-            timestamp=discord.utils.utcnow(),
-        )
-
+        embed = discord.Embed(title="", timestamp=discord.utils.utcnow())
         embed.set_footer(text="")
-
         trophy_emojis = {
             1: "<:1stplace:1514784685295927435>",
             2: "<:2ndplace:1514784692996669490>",
             3: "<:3rdplace:1514784698692276426>",
         }
-
         for pb in pb_list:
             value_lines = []
-
-            for i, sub in enumerate(pb.submissions[: pb.placements_to_show], 1):
+            current_rank = 1
+            prev_metric = None
+            for i, sub in enumerate(pb.submissions, 1):
+                if prev_metric is not None and sub["metric"] != prev_metric:
+                    current_rank = i
                 date_str = (
                     sub["create_time"].strftime("%Y-%m-%d")
                     if sub["create_time"]
                     else "-"
                 )
                 players = sub["players"] or "Unknown"
-
-                # Convert metric to time if is_time_based is True
-                if pb.is_time_based:
-                    metric = convert_game_ticks_to_time(sub["metric"])
-                else:
-                    metric = sub["metric"]
-
-                # trophy emoji
-                line = f"> {trophy_emojis.get(i, '')} **{metric}** • {players} • {date_str}"
-
+                metric = (
+                    convert_game_ticks_to_time(sub["metric"])
+                    if pb.is_time_based
+                    else sub["metric"]
+                )
+                trophy = trophy_emojis.get(current_rank, "")
+                line = f"> {trophy} **{metric}** • {players} • {date_str}"
                 if sub.get("imgur_url"):
                     line += " [(proof)](" + sub["imgur_url"] + ")"
-
                 value_lines.append(line)
-
-            # Fill remaining slots up to 3
-            for i in range(len(pb.submissions) + 1, pb.placements_to_show + 1):
-                value_lines.append(f"> {trophy_emojis.get(i, '')} -")
-
+                prev_metric = sub["metric"]
             embed.add_field(
                 name=f"{pb.activity_name} {pb.emoji}",
-                value="\n".join(value_lines),
+                value="\n".join(value_lines) or "No submissions",
                 inline=False,
             )
-
         return embed
 
     def changelog(

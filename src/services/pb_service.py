@@ -68,21 +68,13 @@ class PbDisplay:
 
 
 def get_top_pbs_for_category(category: int):
-    """
-    Retrieves the top 3 approved submissions for each activity
-    within the specified category and returns a list of PbDisplay objects.
-    """
     db: Session = next(get_db())
-
     try:
-        # Get all activities for the given category
         activities = sorted(
             db.query(Activity).filter(Activity.category == category).all(),
             key=lambda x: x.id,
         )
-
         pbs = []
-
         for activity in activities:
             pb_display = PbDisplay(
                 activity_name=activity.activity_name,
@@ -90,52 +82,39 @@ def get_top_pbs_for_category(category: int):
                 placements_to_show=activity.placements_to_show,
                 is_time_based=activity.is_time_based,
             )
-
-            # Determine the sorting order dynamically based on the activity type
-            if pb_display.is_time_based:
-                order_clause = Submission.metric.asc()
-            else:
-                order_clause = Submission.metric.desc()
-
+            order_clause = (
+                Submission.metric.asc()
+                if pb_display.is_time_based
+                else Submission.metric.desc()
+            )
+            # Fetch extra to catch ties
             top_submissions = (
                 db.query(Submission)
-                .filter(
-                    Submission.activity == activity.id,
-                    Submission.is_approved,
-                )
+                .filter(Submission.activity == activity.id, Submission.is_approved)
                 .order_by(order_clause)
-                .limit(pb_display.placements_to_show)
+                .limit(pb_display.placements_to_show + 10)  # buffer for ties
                 .all()
             )
-
-            # Allow tied pbs
-            ranked = []
-            current_rank = 1
-            prev_metric = None
-            for i, sub in enumerate(top_submissions, 1):
-                if prev_metric is not None and sub.metric != prev_metric:
-                    current_rank = i
-                sub.rank = current_rank
-                ranked.append(sub)
-                prev_metric = sub.metric
-
-            # Build list of submission data dictionaries
+            # Build ranked with ties, include all at or better than placements_to_show
             submission_list = []
-            for submission in top_submissions:
+            shown = 0
+            prev_metric = None
+            for sub in top_submissions:
+                if shown >= pb_display.placements_to_show and sub.metric != prev_metric:
+                    break
                 submission_list.append(
                     {
-                        "metric": submission.metric,
-                        "players": submission.players,
-                        "create_time": submission.create_time,
-                        "imgur_url": submission.imgur_url,
+                        "metric": sub.metric,
+                        "players": sub.players,
+                        "create_time": sub.create_time,
+                        "imgur_url": sub.imgur_url,
                     }
                 )
-
+                prev_metric = sub.metric
+                shown += 1
             pb_display.submissions = submission_list
             pbs.append(pb_display)
-
         return pbs
-
     finally:
         db.close()
 
