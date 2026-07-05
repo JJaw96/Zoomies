@@ -118,26 +118,23 @@ class ApprovalCog(commands.Cog):
         new_placement = pb_service.get_placement_for_activity(
             activity_id=submission.activity,
             metric=submission.metric,
-            is_time_based=True,
+            is_time_based=activity.is_time_based,
         )
 
-        amount_to_display = activity.placements_to_show if activity else 3
-
-        if new_placement <= amount_to_display:
-            changelog_message = await changelog_channel.send(
-                embed=Embeds.changelog(
-                    players=submission.players,
-                    activity=activity.activity_name,
-                    metric=submission.metric,
-                    imgur_url=submission.imgur_url,
-                    leaderboard_url=leaderboard_message.jump_url,
-                    is_time_based=activity.is_time_based,
-                    new_placement=new_placement,
-                )
+        changelog_message = await changelog_channel.send(
+            embed=Embeds.changelog(
+                players=submission.players,
+                activity=activity.activity_name,
+                metric=submission.metric,
+                imgur_url=submission.imgur_url,
+                leaderboard_url=leaderboard_message.jump_url,
+                is_time_based=activity.is_time_based,
+                new_placement=new_placement,
             )
+        )
 
-            await changelog_message.add_reaction("🎉")
-            await changelog_message.add_reaction("👏")
+        await changelog_message.add_reaction("🎉")
+        await changelog_message.add_reaction("👏")
 
         await message.delete()
 
