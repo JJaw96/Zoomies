@@ -148,8 +148,8 @@ class Embeds:
         )
 
         embed.add_field(
-            name="",
-            value=f"Check out the leaderboard [here]({leaderboard_url})",
+            name="Leaderboard Link",
+            value=leaderboard_url,
         )
 
         if imgur_url:
