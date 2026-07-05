@@ -110,6 +110,11 @@ class ApprovalCog(commands.Cog):
             )
             return
 
+        if emoji == "❌":
+            pb_service.approve_or_deny_pb_submission(int(footer), False)
+            await message.delete()
+            return
+
         new_placement = pb_service.get_placement_for_activity(
             activity_id=submission.activity,
             metric=submission.metric,
