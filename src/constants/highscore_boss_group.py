@@ -2,7 +2,7 @@ import wom
 
 
 class HiscoreBossGroup:
-    def __init__(self, name, url, bosses, emotes = []):
+    def __init__(self, name, url, bosses, emotes=[]):
         self.name = name
         self.url = url
         self.bosses = bosses
@@ -25,8 +25,8 @@ all_boss_groups = [
             "<:Pet_general_graardor:1518771953262133369>",
             "<:Pet_kril_tsutsaroth:1518771952557232158>",
             "<:Pet_kreearra:1518771951915634802>",
-            "<:Nexling:1518771950753943754>" 
-        ]
+            "<:Nexling:1518771950753943754>",
+        ],
     ),
     HiscoreBossGroup(
         name="Wilderness",
@@ -57,8 +57,8 @@ all_boss_groups = [
             "<:Scorpias_offspring:1518774325228994621>",
             "<:Pet_chaos_elemental:1518774324230881420>",
             "<:Prince_black_dragon:1518774323417055242>",
-            "<:Pet_corporeal_critter:1518774322645307483>"
-        ]
+            "<:Pet_corporeal_critter:1518774322645307483>",
+        ],
     ),
     HiscoreBossGroup(
         name="Raids",
@@ -77,8 +77,8 @@ all_boss_groups = [
             "<:Lil_zik:1518776594733207736>",
             "<:hmt:1518776593080647710>",
             "<:150toa:1518776591671361617>",
-            "<:300toa:1518776590673117254>"
-        ]
+            "<:300toa:1518776590673117254>",
+        ],
     ),
     HiscoreBossGroup(
         name="Slayer",
@@ -109,8 +109,8 @@ all_boss_groups = [
             "<:Hellpuppy:1518777544789463172>",
             "<:Ikkle_hydra_fire:1518777544269103280>",
             "<:Nid:1518777543514132491>",
-            "<:Gulliver:1518777542301974652>",   
-        ]
+            "<:Gulliver:1518777542301974652>",
+        ],
     ),
     HiscoreBossGroup(
         name="Money Bosses",
@@ -132,7 +132,7 @@ all_boss_groups = [
             "<:Little_parasite:1518778146869084321>",
             "<:Youngllef:1518778146428551238>",
             "<:Corrupted_youngllef:1518778145803735196>",
-        ]
+        ],
     ),
     HiscoreBossGroup(
         name="Other",
@@ -154,8 +154,9 @@ all_boss_groups = [
             wom.Metric.Amoxliatl,
             wom.Metric.Brutus,
             wom.Metric.DoomOfMokhaiotl,
+            wom.Metric.MaggotKing,
         ],
-        emotes = [
+        emotes=[
             "<:Dharoks_helm:1518779253947105311>",
             "<:Eclipse_atlatl:1518779253183742053>",
             "<:Baby_mole:1518779251774586964>",
@@ -172,7 +173,8 @@ all_boss_groups = [
             "<:Moxi:1518779240252702900>",
             "<:Beef:1518779239330218095>",
             "<:Dom:1518779238495555676>",
-        ]
+            "<:Maggot_marquess:1522053456981000203>",
+        ],
     ),
     HiscoreBossGroup(
         name="Trial Content",
@@ -187,8 +189,8 @@ all_boss_groups = [
             "<:Tzrekjad:1518780664332419224>",
             "<:Tzrekzuk:1518780663682039859>",
             "<:Smol_heredit:1518780662654435419>",
-            "<:glory:1518780661987672234>"
-        ]
+            "<:glory:1518780661987672234>",
+        ],
     ),
     HiscoreBossGroup(
         name="Desert Treasure 2",
@@ -203,8 +205,8 @@ all_boss_groups = [
             "<:Baron:1518781036081709106>",
             "<:Lilviathan:1518781035163287813>",
             "<:Butch:1518781033104015605>",
-            "<:Wisp:1518781031887405248>"
-        ]
+            "<:Wisp:1518781031887405248>",
+        ],
     ),
     HiscoreBossGroup(
         name="Misc Activities",
@@ -228,6 +230,6 @@ all_boss_groups = [
             "<:Stats_icon:1518781967485763584>",
             "<:ehp:1518781966697238679>",
             "<:ehb:1518781965132628232>",
-        ]
+        ],
     ),
 ]

@@ -61,80 +61,21 @@ def pb_category(activity_payloads, category_name):
     embed = discord.Embed(title=category_name, description="", colour=0xFE86E4)
 
     for activity in activity_payloads:
+        placements_string = ""
+
+        for i, placement in enumerate(activity["placements"]):
+            if len(placement["submissions"]) == 0:
+                placements_string += f"> {trophy_emojis[i + 1]} • N/A\n"
+                continue
+            for submission in placement["submissions"]:
+                placements_string += f"> {trophy_emojis[i + 1]} • {submission['username']} • {convert_game_ticks_to_time(submission['metric']) if activity['is_time_based'] else submission['metric']} • [Proof]({submission['imgur_url']})\n"
+
         embed.add_field(
-            name=f"{activity['name']} {activity['emoji']}", value="", inline=False
+            name=f"{activity['name']} {activity['emoji']}",
+            value=placements_string,
+            inline=False,
         )
     return embed
-    # [
-    #     {
-    #         "name": "Duke Sucellus",
-    #         "emoji": "<:Baron:1518781036081709106>",
-    #         "placements_to_show": 1,
-    #         "placements": [{"submissions": []}],
-    #         "is_time_based": True,
-    #     },
-    #     {
-    #         "name": "Duke Sucellus (Awakened)",
-    #         "emoji": "<:Baron:1518781036081709106>",
-    #         "placements_to_show": 1,
-    #         "placements": [{"submissions": []}],
-    #         "is_time_based": True,
-    #     },
-    #     {
-    #         "name": "Vardorvis",
-    #         "emoji": "<:Butch:1518781033104015605>",
-    #         "placements_to_show": 1,
-    #         "placements": [{"submissions": []}],
-    #         "is_time_based": True,
-    #     },
-    #     {
-    #         "name": "Vardorvis (Awakened)",
-    #         "emoji": "<:Butch:1518781033104015605>",
-    #         "placements_to_show": 1,
-    #         "placements": [{"submissions": []}],
-    #         "is_time_based": True,
-    #     },
-    #     {
-    #         "name": "The Whisperer",
-    #         "emoji": "<:Wisp:1518781031887405248>",
-    #         "placements_to_show": 1,
-    #         "placements": [{"submissions": []}],
-    #         "is_time_based": True,
-    #     },
-    #     {
-    #         "name": "The Whisperer (Awakened)",
-    #         "emoji": "<:Wisp:1518781031887405248>",
-    #         "placements_to_show": 1,
-    #         "placements": [{"submissions": []}],
-    #         "is_time_based": True,
-    #     },
-    #     {
-    #         "name": "Leviathan",
-    #         "emoji": "<:Lilviathan:1518781035163287813>",
-    #         "placements_to_show": 1,
-    #         "placements": [
-    #             {"submissions": [{"username": "The", "metric": 53, "imgur_url": ""}]}
-    #         ],
-    #         "is_time_based": True,
-    #     },
-    #     {
-    #         "name": "Leviathan (Awakened)",
-    #         "emoji": "<:Lilviathan:1518781035163287813>",
-    #         "placements_to_show": 1,
-    #         "placements": [
-    #             {
-    #                 "submissions": [
-    #                     {
-    #                         "username": "1:01",
-    #                         "metric": 35,
-    #                         "imgur_url": "https://i.imgur.com/8p3cdcx.png",
-    #                     }
-    #                 ]
-    #             }
-    #         ],
-    #         "is_time_based": True,
-    #     },
-    # ]
 
 
 def changelog(

@@ -23,31 +23,23 @@ def filter_top_pbs_with_tiebreakers(activity: Activity, submissions: list[Submis
     if len(submissions) == 0:
         return result
 
-    best_place_so_far = submissions[0].metric
-
-    # Index stuff. 0 = starter for the algorithm. 0 = 1st place, 1 = 2nd place, 2 = 3rd place
     placement = 0
 
-    for submission in range(len(submissions) - 1):
+    for i, sub in enumerate(submissions):
         if placement >= activity.placements_to_show:
             break
 
         result["placements"][placement]["submissions"].append(
             {
-                "username": submissions[submission].players,
-                "metric": submissions[submission].metric,
-                "imgur_url": submissions[submission].imgur_url,
+                "username": sub.players,
+                "metric": sub.metric,
+                "imgur_url": sub.imgur_url or "",
             }
         )
-        if submissions[submission + 1].metric != best_place_so_far:
+
+        # Advance to next placement group
+        if i + 1 < len(submissions) and submissions[i + 1].metric != sub.metric:
             placement += 1
-            best_place_so_far = submissions[submission + 1].metric
-
-    # cursor = 0
-    # placement = 0
-    # submission = submissions[0]
-    # best_metric = submission.metric
-
     return result
 
 
@@ -84,19 +76,19 @@ expected_result = {
     "placements": [
         {
             "submissions": [
-                {"username": "user1", "imgur_url": None, "metric": 95},
-                {"username": "user2", "imgur_url": None, "metric": 95},
-                {"username": "user3", "imgur_url": None, "metric": 95},
+                {"username": "user1", "imgur_url": "", "metric": 95},
+                {"username": "user2", "imgur_url": "", "metric": 95},
+                {"username": "user3", "imgur_url": "", "metric": 95},
             ],
         },
         {
             "submissions": [
-                {"username": "user4", "imgur_url": None, "metric": 96},
-                {"username": "user5", "imgur_url": None, "metric": 96},
-                {"username": "user6", "imgur_url": None, "metric": 96},
+                {"username": "user4", "imgur_url": "", "metric": 96},
+                {"username": "user5", "imgur_url": "", "metric": 96},
+                {"username": "user6", "imgur_url": "", "metric": 96},
             ]
         },
-        {"submissions": [{"username": "user7", "imgur_url": None, "metric": 98}]},
+        {"submissions": [{"username": "user7", "imgur_url": "", "metric": 98}]},
     ],
     "is_time_based": True,
 }

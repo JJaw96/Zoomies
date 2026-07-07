@@ -43,7 +43,6 @@ class HighestKillcountCog(commands.Cog):
             new_embed: discord.Embed = await highest_kc_service.build_highest_kcs_embed(
                 highest_kc_reprocess.category
             )
-            print(new_embed.fields)
             # Edit the message with new data
             await message.edit(embed=new_embed)
             highest_kc_service.update_reprocess_record(message)
