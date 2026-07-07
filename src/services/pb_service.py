@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from database import get_db
 from models import Activity, PBCategoryReprocess, Submission
+from utils.filter_top_pbs_with_tiebreakers import filter_top_pbs_with_tiebreakers
 
 
 def create_pb_submission(
@@ -52,21 +53,6 @@ def approve_or_deny_pb_submission(submission_id: int, is_approved: bool):
         return False
 
 
-class PbDisplay:
-    def __init__(
-        self,
-        activity_name: str,
-        emoji: str,
-        placements_to_show: int = 3,
-        is_time_based: bool = True,
-    ):
-        self.activity_name = activity_name
-        self.emoji = emoji
-        self.is_time_based = is_time_based
-        self.placements_to_show = placements_to_show
-        self.submissions = []
-
-
 def get_top_pbs_for_category(category: int):
     db: Session = next(get_db())
     try:
@@ -74,17 +60,11 @@ def get_top_pbs_for_category(category: int):
             db.query(Activity).filter(Activity.category == category).all(),
             key=lambda x: x.id,
         )
-        pbs = []
+        pb_displays = []
         for activity in activities:
-            pb_display = PbDisplay(
-                activity_name=activity.activity_name,
-                emoji=activity.emoji,
-                placements_to_show=activity.placements_to_show,
-                is_time_based=activity.is_time_based,
-            )
             order_clause = (
                 Submission.metric.asc()
-                if pb_display.is_time_based
+                if activity.is_time_based
                 else Submission.metric.desc()
             )
             # Fetch extra to catch ties
@@ -92,29 +72,13 @@ def get_top_pbs_for_category(category: int):
                 db.query(Submission)
                 .filter(Submission.activity == activity.id, Submission.is_approved)
                 .order_by(order_clause)
-                .limit(pb_display.placements_to_show + 10)  # buffer for ties
                 .all()
             )
-            # Build ranked with ties, include all at or better than placements_to_show
-            submission_list = []
-            shown = 0
-            prev_metric = None
-            for sub in top_submissions:
-                if shown >= pb_display.placements_to_show and sub.metric != prev_metric:
-                    break
-                submission_list.append(
-                    {
-                        "metric": sub.metric,
-                        "players": sub.players,
-                        "create_time": sub.create_time,
-                        "imgur_url": sub.imgur_url,
-                    }
-                )
-                prev_metric = sub.metric
-                shown += 1
-            pb_display.submissions = submission_list
-            pbs.append(pb_display)
-        return pbs
+
+            pb_displays.append(
+                filter_top_pbs_with_tiebreakers(activity, top_submissions)
+            )
+        return pb_displays
     finally:
         db.close()
 

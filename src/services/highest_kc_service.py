@@ -3,13 +3,12 @@ from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 
 from database import get_db
-from embeds import Embeds
+import embeds
 from models import HighestKCReprocess
 from services.wom_client import WiseOldManClient
 import sys
 from pathlib import Path
 from constants import highscore_boss_group
-import unittest.mock as mock
 
 # Get sibling dependencies
 project_root = Path(__file__).resolve().parent
@@ -93,5 +92,5 @@ async def build_highest_kcs_embed(category: int):
     except Exception as e:
         print("[Highest KC] Failed section, skipping it", e)
 
-    embed = Embeds.highest_kcs(data, group.name)
+    embed = embeds.highest_kcs(data, group.name)
     return embed

@@ -17,7 +17,7 @@ project_root = Path(__file__).resolve().parent
 sys.path.insert(0, str(project_root))
 
 
-class SubmissionCog(commands.Cog):
+class PBSubmissionCog(commands.Cog):
     def __init__(self, bot: commands.Bot, logger: logging.Logger | None = None):
         self.bot = bot
         self.logger = logger or logging.getLogger(__name__)
@@ -199,4 +199,4 @@ class SubmissionCog(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(SubmissionCog(bot))
+    await bot.add_cog(PBSubmissionCog(bot))

@@ -1,49 +1,8 @@
-import logging
 import os
-import discord
-from discord.ext import commands
 from dotenv import load_dotenv
-
-from database import init_db, SessionLocal
-from models import Activity, Submission
-
-load_dotenv()
-
-
-class Bot(commands.Bot):
-    def __init__(self):
-        super().__init__(command_prefix="!", intents=discord.Intents.all())
-
-        init_db()
-
-        self.SessionLocal = SessionLocal
-        self.Activity = Activity
-        self.Submission = Submission
-
-        logging.basicConfig(level=logging.INFO)
-        self.logger = logging.getLogger(__name__)
-
-    async def setup_hook(self) -> None:
-        cogs = [
-            "cogs.submission",
-            "cogs.static_embeds",
-            "cogs.highest_killcounts",
-            "cogs.approval",
-            "cogs.display_pbs",
-        ]
-        for cog in cogs:
-            try:
-                await self.load_extension(cog)
-                print(f"{cog} loaded successfully.")
-            except Exception as e:
-                print(f"Failed to load {cog}: {e}")
-
-    async def on_ready(self):
-        await self.tree.sync()
-        print(f"{self.user} has connected to Discord!")
-
-
-bot = Bot()
+from bot import Bot
 
 if __name__ == "__main__":
+    bot = Bot()
+    load_dotenv()
     bot.run(os.getenv("DISCORD_BOT_TOKEN"))

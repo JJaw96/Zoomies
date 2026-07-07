@@ -4,15 +4,16 @@ import discord
 from discord.ext import commands
 import sys
 from pathlib import Path
-from embeds import Embeds
 from services import pb_service
+import embeds
+from constants.pb_category_name import pb_category_name
 
 # Get sibling dependencies
 project_root = Path(__file__).resolve().parent
 sys.path.insert(0, str(project_root))
 
 
-class ApprovalCog(commands.Cog):
+class PBApprovalCog(commands.Cog):
     def __init__(self, bot: commands.Bot, logger: logging.Logger | None = None):
         self.bot = bot
         self.logger = logger or logging.getLogger(__name__)
@@ -122,7 +123,7 @@ class ApprovalCog(commands.Cog):
         )
 
         changelog_message = await changelog_channel.send(
-            embed=Embeds.changelog(
+            embed=embeds.changelog(
                 players=submission.players,
                 activity=activity.activity_name,
                 metric=submission.metric,
@@ -138,9 +139,11 @@ class ApprovalCog(commands.Cog):
 
         await message.delete()
 
-        embed = Embeds.pb_category(pb_service.get_top_pbs_for_category(category))
+        embed = embeds.pb_category(
+            pb_service.get_top_pbs_for_category(category), pb_category_name[category]
+        )
         await leaderboard_message.edit(embed=embed)
 
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(ApprovalCog(bot))
+    await bot.add_cog(PBApprovalCog(bot))

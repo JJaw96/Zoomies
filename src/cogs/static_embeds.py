@@ -2,7 +2,7 @@ import logging
 import discord
 from discord.ext import commands
 from discord import app_commands
-from embeds import Embeds
+import embeds
 
 
 class StaticEmbedCog(commands.Cog):
@@ -18,7 +18,7 @@ class StaticEmbedCog(commands.Cog):
         self,
         interaction: discord.Interaction,
     ):
-        await interaction.channel.send(embed=Embeds.the_hunt_winners())
+        await interaction.channel.send(embed=embeds.the_hunt_winners())
         await interaction.response.send_message(
             f"Displayed the hunt winners, {interaction.user.mention}!", ephemeral=True
         )
