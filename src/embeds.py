@@ -62,6 +62,8 @@ def bingo_winners_embeds():
 
     candyland_embed.set_footer(text="April 17th, 2023")
 
+    candyland_embed.set_image(url="https://i.imgur.com/M5apOQv.png")
+
     snakes_embed = discord.Embed(title="Snakes & Ladders (2023)")
 
     snakes_embed.add_field(
@@ -80,6 +82,7 @@ def bingo_winners_embeds():
     )
 
     snakes_embed.set_footer(text="July 19th, 2023")
+    snakes_embed.set_image(url="https://i.imgur.com/gBbTq0j.png")
 
     # ----- Battle of the Gods (2023) -----
     battle_gods = discord.Embed(title="Battle of the Gods (2023)")
@@ -100,6 +103,7 @@ def bingo_winners_embeds():
     )
 
     battle_gods.set_footer(text="September 3rd, 2023")
+    battle_gods.set_image(url="https://i.imgur.com/kAMUnC9.png")
 
     # ----- Black cat bingo (2023) -----
     blackcatbingo = discord.Embed(title="Black Cat Halloween Bingo (2023)")
@@ -120,6 +124,10 @@ def bingo_winners_embeds():
     )
 
     blackcatbingo.set_footer(text="October 22nd, 2023")
+
+    blackcatbingo.set_image(
+        url="blob:https://imgur.com/85aae058-e4e9-47d8-9be0-586d2f83b31c"
+    )
 
     # ----- Darts bingo -----
     darts = discord.Embed(title="Darts 2024")
@@ -156,7 +164,7 @@ def bingo_winners_embeds():
         value="https://discord.com/channels/847313025919746129/847313574040305704/1253131324483567698\n",
     )
 
-    summerland.set_thumbnail(url="https://i.imgur.com/RT1AlJj.png")
+    summerland.set_image(url="https://i.imgur.com/RT1AlJj.png")
 
     trickortreat = discord.Embed(title="Trick or Treat 2024")
 
@@ -176,6 +184,8 @@ def bingo_winners_embeds():
     trickortreat.set_thumbnail(
         url="https://oldschool.runescape.wiki/images/thumb/Magical_pumpkin_%28garden%29_built.png/300px-Magical_pumpkin_%28garden%29_built.png?cf101"
     )
+
+    trickortreat.set_image(url="https://i.imgur.com/0g6k1qE.png")
 
     duobingo = discord.Embed(title="Tale of Two Cats Duo Bingo (2025)")
 
