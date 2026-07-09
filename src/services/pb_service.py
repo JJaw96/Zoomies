@@ -113,6 +113,7 @@ def get_pb_category_reprocess_by_category(category: int):
             .filter(PBCategoryReprocess.category == category)
             .first()
         )
+
         return pb_category_reprocess_record
     finally:
         db.close()

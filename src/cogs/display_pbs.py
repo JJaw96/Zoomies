@@ -42,7 +42,7 @@ class DisplayPbsCog(commands.Cog):
     async def refresh_all_pbs(self, interaction: discord.Interaction):
         pb_channel = self.bot.get_channel(int(os.getenv("PB_CHANNEL")))
 
-        for category in range(1, 8):
+        for category in range(1, 9):
             pb_category_reprocess = pb_service.get_pb_category_reprocess_by_category(
                 category
             )

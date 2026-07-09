@@ -64,7 +64,9 @@ class PBSubmissionCog(commands.Cog):
                     .first()
                 )
             except Exception as e:
-                await interaction.response.send_message("Error", e)
+                await interaction.response.send_message(
+                    "Error submitting contact Tangy for help", ephemeral=True
+                )
 
             changelog_channel_id = os.getenv("CHANGELOG_CHANNEL")
             changelog_channel = self.bot.get_channel(int(changelog_channel_id))
@@ -167,7 +169,7 @@ class PBSubmissionCog(commands.Cog):
         except Exception as e:
             self.logger.error(f"Error in submit_a_pb command: {e}")
             await interaction.response.send_message(
-                "An error occurred while processing your submission. Please try.",
+                "An error occurred while processing your submission. Please try again later.",
                 ephemeral=True,
             )
         finally:
