@@ -13,17 +13,17 @@ def the_hunt_winners():
     )
     embed.add_field(
         name="<:hilt:1524823060308561960> Chapter II (Nex)",
-        value=f"{trophy_emojis[0]} We Can Spoon, Voteyes2pvp\n",
+        value=f"{trophy_emojis[1]} We Can Spoon, Voteyes2pvp\n",
         inline=False,
     )
     embed.add_field(
         name="<:whelm:1524823069401550958> Chapter III (Barbarian Assault)",
-        value=f"{trophy_emojis[1]} w1zzy, SithLordMeow, dnd5, ZaryteKnight, Pattaya\n",
+        value=f"{trophy_emojis[2]} w1zzy, SithLordMeow, dnd5, ZaryteKnight, Pattaya\n",
         inline=False,
     )
     embed.add_field(
         name="<:rapier:1524823074866724915> Chapter IV (Theatre of Blood)",
-        value=f"{trophy_emojis[2]} N/A\n",
+        value=f"{trophy_emojis[3]} N/A\n",
         inline=False,
     )
 
