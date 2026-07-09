@@ -142,7 +142,7 @@ def bingo_winners_embeds():
         value="https://discord.com/channels/847313025919746129/847313574040305704/1253131324483567698\n",
     )
 
-    summerland.set_image(url="https://i.imgur.com/RT1AlJj.png")
+    summerland.set_image(url="https://i.imgur.com/WzGnkxe.png")
 
     trickortreat = discord.Embed(title="Trick or Treat 2024")
 
@@ -159,7 +159,7 @@ def bingo_winners_embeds():
         value="https://discord.com/channels/847313025919746129/847313574040305704/1304922777924665395\n",
     )
 
-    trickortreat.set_image(url="https://i.imgur.com/0g6k1qE.png")
+    trickortreat.set_image(url="https://i.imgur.com/REqiiE2.png")
 
     duobingo = discord.Embed(title="Tale of Two Cats Duo Bingo (2025)")
 
