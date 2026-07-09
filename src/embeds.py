@@ -56,10 +56,6 @@ def bingo_winners_embeds():
         value="https://discord.com/channels/847313025919746129/847313574040305704/1097535747902423150\n",
     )
 
-    candyland_embed.set_thumbnail(
-        url="https://oldschool.runescape.wiki/images/thumb/Purple_sweets_detail.png/120px-Purple_sweets_detail.png?41120"
-    )
-
     candyland_embed.set_footer(text="April 17th, 2023")
 
     candyland_embed.set_image(url="https://i.imgur.com/M5apOQv.png")
@@ -75,10 +71,6 @@ def bingo_winners_embeds():
     snakes_embed.add_field(
         name="",
         value="https://discord.com/channels/847313025919746129/847313574040305704/1131088765675380847\n",
-    )
-
-    snakes_embed.set_thumbnail(
-        url="https://oldschool.runescape.wiki/images/Ladders.png?b5be8&20150310211136"
     )
 
     snakes_embed.set_footer(text="July 19th, 2023")
@@ -98,10 +90,6 @@ def bingo_winners_embeds():
         value="https://discord.com/channels/847313025919746129/847313574040305704/1148004422153158666\n",
     )
 
-    battle_gods.set_thumbnail(
-        url="https://oldschool.runescape.wiki/images/thumb/Zamorak%27s_statue_%28Slepe%29.png/122px-Zamorak%27s_statue_%28Slepe%29.png?7e7ee"
-    )
-
     battle_gods.set_footer(text="September 3rd, 2023")
     battle_gods.set_image(url="https://i.imgur.com/kAMUnC9.png")
 
@@ -114,10 +102,6 @@ def bingo_winners_embeds():
         inline=False,
     )
 
-    blackcatbingo.set_thumbnail(
-        url="https://oldschool.runescape.wiki/images/thumb/Cat_%28black%29.png/180px-Cat_%28black%29.png?1dfde"
-    )
-
     blackcatbingo.add_field(
         name="",
         value="https://discord.com/channels/847313025919746129/847313574040305704/1165755681664667789\n",
@@ -125,9 +109,7 @@ def bingo_winners_embeds():
 
     blackcatbingo.set_footer(text="October 22nd, 2023")
 
-    blackcatbingo.set_image(
-        url="blob:https://imgur.com/85aae058-e4e9-47d8-9be0-586d2f83b31c"
-    )
+    blackcatbingo.set_image(url="https://i.imgur.com/9bmRLCx.png")
 
     # ----- Darts bingo -----
     darts = discord.Embed(title="Darts 2024")
@@ -143,10 +125,6 @@ def bingo_winners_embeds():
     darts.add_field(
         name="",
         value="https://discord.com/channels/847313025919746129/847313574040305704/1206795998077132810\n",
-    )
-
-    darts.set_thumbnail(
-        url="https://oldschool.runescape.wiki/images/thumb/Target_%28Ranging_Guild%29.png/150px-Target_%28Ranging_Guild%29.png?89891"
     )
 
     summerland = discord.Embed(title="Summerland 2024")
@@ -179,10 +157,6 @@ def bingo_winners_embeds():
     trickortreat.add_field(
         name="",
         value="https://discord.com/channels/847313025919746129/847313574040305704/1304922777924665395\n",
-    )
-
-    trickortreat.set_thumbnail(
-        url="https://oldschool.runescape.wiki/images/thumb/Magical_pumpkin_%28garden%29_built.png/300px-Magical_pumpkin_%28garden%29_built.png?cf101"
     )
 
     trickortreat.set_image(url="https://i.imgur.com/0g6k1qE.png")
