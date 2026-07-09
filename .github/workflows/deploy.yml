@@ -24,7 +24,7 @@ jobs:
 
   deploy-prod:
     needs: ci
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/dev'
     runs-on: [self-hosted, raspberry-pi]
     environment: production
     steps:
