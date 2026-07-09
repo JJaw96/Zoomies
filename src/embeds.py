@@ -310,11 +310,11 @@ def changelog(
 
     embed.add_field(
         name="Ranking",
-        value=f"{trophy_emojis[0]} 1st place!"
+        value=f"{trophy_emojis[1]} 1st place!"
         if new_placement == 1
-        else f"{trophy_emojis[1]} 2nd place"
+        else f"{trophy_emojis[2]} 2nd place"
         if new_placement == 2
-        else f"{trophy_emojis[2]} 3rd place",
+        else f"{trophy_emojis[3]} 3rd place",
     )
 
     embed.add_field(
