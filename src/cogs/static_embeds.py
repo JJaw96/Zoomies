@@ -28,7 +28,7 @@ class StaticEmbedCog(commands.Cog):
         self,
         interaction: discord.Interaction,
     ):
-        await interaction.channel.send(embeds=embeds.bingo_winners())
+        await interaction.channel.send(embeds=embeds.bingo_winners_embeds())
         await interaction.response.send_message(
             f"Displayed the bingo winners, {interaction.user.mention}!", ephemeral=True
         )
