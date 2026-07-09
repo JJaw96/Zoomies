@@ -32,6 +32,217 @@ def the_hunt_winners():
     return embed
 
 
+def bingo_winners_embeds():
+    embeds = []
+
+    # ----- First Bingo (2022) -----
+    firstbingo_embed = discord.Embed(title="Unnamed Bingo (2022)")
+    firstbingo_embed.add_field(
+        name="Winners",
+        value=f"{trophy_emojis[1]} kitty neko, Lil xarp, deadlymoth, Sanguinestis",
+        inline=False,
+    )
+    firstbingo_embed.set_footer(text="August 24th, 2022")
+
+    # ----- Candyland (2023) -----
+    candyland_embed = discord.Embed(title="Candyland (2023)")
+    candyland_embed.add_field(
+        name="Winners",
+        value=f"{trophy_emojis[1]} Impressed, KlRBY, Helen Feller, Baked, A Cat Dad, Iron Coosa",
+        inline=False,
+    )
+    candyland_embed.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1097535747902423150\n",
+    )
+
+    candyland_embed.set_thumbnail(
+        url="https://oldschool.runescape.wiki/images/thumb/Purple_sweets_detail.png/120px-Purple_sweets_detail.png?41120"
+    )
+
+    candyland_embed.set_footer(text="April 17th, 2023")
+
+    snakes_embed = discord.Embed(title="Snakes & Ladders (2023)")
+
+    snakes_embed.add_field(
+        name="Winners",
+        value=f"{trophy_emojis[1]} Lamhirh, Dopamemes, Adaboy23, Scarlet cat, Zueskin, Rotting,",
+        inline=False,
+    )
+
+    snakes_embed.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1131088765675380847\n",
+    )
+
+    snakes_embed.set_thumbnail(
+        url="https://oldschool.runescape.wiki/images/Ladders.png?b5be8&20150310211136"
+    )
+
+    snakes_embed.set_footer(text="July 19th, 2023")
+
+    # ----- Battle of the Gods (2023) -----
+    battle_gods = discord.Embed(title="Battle of the Gods (2023)")
+
+    battle_gods.add_field(
+        name="",
+        value=f"{trophy_emojis[1]} Lilies, Steals, Bird, justduff, jalals mane, Fat Cat, Silly Cowboy, Domimic, Virgin Rabbi, Shypu, Musei, LunasHowl, XtraIcy",
+        inline=False,
+    )
+
+    battle_gods.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1148004422153158666\n",
+    )
+
+    battle_gods.set_thumbnail(
+        url="https://oldschool.runescape.wiki/images/thumb/Zamorak%27s_statue_%28Slepe%29.png/122px-Zamorak%27s_statue_%28Slepe%29.png?7e7ee"
+    )
+
+    battle_gods.set_footer(text="September 3rd, 2023")
+
+    # ----- Black cat bingo (2023) -----
+    blackcatbingo = discord.Embed(title="Black Cat Halloween Bingo (2023)")
+
+    blackcatbingo.add_field(
+        name="",
+        value=f"{trophy_emojis[1]} kitty neko, Lil Yeeter, Miggy Spoon, Iron Yesu, nora cat, unrot, Scarlet cat",
+        inline=False,
+    )
+
+    blackcatbingo.set_thumbnail(
+        url="https://oldschool.runescape.wiki/images/thumb/Cat_%28black%29.png/180px-Cat_%28black%29.png?1dfde"
+    )
+
+    blackcatbingo.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1165755681664667789\n",
+    )
+
+    blackcatbingo.set_footer(text="October 22nd, 2023")
+
+    # ----- Darts bingo -----
+    darts = discord.Embed(title="Darts 2024")
+
+    darts.add_field(
+        name="",
+        value=f"{trophy_emojis[1]} Norden, Rat King, Viables, Gerg, Lt Kasper, Bob Kat, Bornfury95, Wrldsbestsmp, unrot, nora cat",
+        inline=False,
+    )
+
+    darts.set_footer(text="February 11th, 2024")
+
+    darts.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1206795998077132810\n",
+    )
+
+    darts.set_thumbnail(
+        url="https://oldschool.runescape.wiki/images/thumb/Target_%28Ranging_Guild%29.png/150px-Target_%28Ranging_Guild%29.png?89891"
+    )
+
+    summerland = discord.Embed(title="Summerland 2024")
+
+    summerland.add_field(
+        name="",
+        value=f"{trophy_emojis[1]} Rad Hard, Luckyzhoulji, Natoh, Centac, rad soft, Eboj111, Zezimas pimp, Pup in a Cup, Auzty, Inri, L indsey",
+        inline=False,
+    )
+
+    summerland.set_footer(text="June 1st, 2024")
+
+    summerland.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1253131324483567698\n",
+    )
+
+    summerland.set_thumbnail(url="https://i.imgur.com/RT1AlJj.png")
+
+    trickortreat = discord.Embed(title="Trick or Treat 2024")
+
+    trickortreat.add_field(
+        name="",
+        value=f"{trophy_emojis[1]} Natoh, Centac, Teddy Bauer, zezimas pimp, Pawrie, Smartpants77, Thorn, Enza Denino, Iron Yesu, FE CEO, 3nv07",
+        inline=False,
+    )
+
+    trickortreat.set_footer(text="October 25th, 2024")
+
+    trickortreat.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1304922777924665395\n",
+    )
+
+    trickortreat.set_thumbnail(
+        url="https://oldschool.runescape.wiki/images/thumb/Magical_pumpkin_%28garden%29_built.png/300px-Magical_pumpkin_%28garden%29_built.png?cf101"
+    )
+
+    duobingo = discord.Embed(title="Tale of Two Cats Duo Bingo (2025)")
+
+    duobingo.add_field(
+        name="",
+        value=f"{trophy_emojis[1]} MvM Sensei, Shadow Elves",
+        inline=False,
+    )
+
+    duobingo.set_footer(text="March 7th, 2025")
+
+    duobingo.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1350512109334823034\n",
+    )
+
+    duobingo.set_image(url="https://i.imgur.com/VAjJRaA.png")
+
+    skw = discord.Embed(title="Super Kitty World (2025)")
+
+    skw.add_field(
+        name="",
+        value=f"{trophy_emojis[1]} Pot PvM, itzfluffy72, Scampr, Shadow Elves, Pot Tequila, Pot Cannabis, Star Mew, Am eer, Pot Latinas, Voteyes2pvp, Lilpaleo, Meowmiix, Pot Tacos, Meowskeys, Lilliann, Big Vorki, padingy, 3nv07",
+        inline=False,
+    )
+
+    skw.set_footer(text="August 14th, 2025")
+
+    skw.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1405605880317083718\n",
+    )
+
+    skw.set_image(url="https://i.imgur.com/KxfBeG1.jpeg")
+
+    garden = discord.Embed(title="Enchanted Garden (2026)")
+
+    garden.add_field(
+        name="",
+        value=f"{trophy_emojis[1]} Pot Tequila, MvM Sensei, itzfluffy72, Cripz, Shadow Elves, Scampr, Anhooter, VoteYes2PvP, Lilpaleo, Pot Tacos, Banhammering, Big Nerg, Pot Latinas, Meowmiix, Padingy, Fe Ursus, Chirm, Lightmaige, Boob Ay",
+        inline=False,
+    )
+
+    garden.set_footer(text="March 19th, 2026")
+
+    garden.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1484326399115399168\n",
+    )
+
+    garden.set_image(url="https://i.imgur.com/YHcLWJU.jpeg")
+
+    embeds.append(firstbingo_embed)
+    embeds.append(candyland_embed)
+    embeds.append(snakes_embed)
+    embeds.append(battle_gods)
+    embeds.append(blackcatbingo)
+    embeds.append(darts)
+    embeds.append(summerland)
+    embeds.append(trickortreat)
+    embeds.append(duobingo)
+    embeds.append(skw)
+    embeds.append(garden)
+
+    return embeds
+
+
 def highest_kcs(data, category_name):
     embed = discord.Embed(title=category_name, colour=0xFE86E4)
 
