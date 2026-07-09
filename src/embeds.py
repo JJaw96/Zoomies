@@ -7,23 +7,23 @@ def the_hunt_winners():
     embed = discord.Embed(title="The Hunt Winners", colour=0xFE86E4)
 
     embed.add_field(
-        name="<:huberte:1514809555152932864> Chapter I (Hueycoatl)",
+        name="<:Hubert:1524823059436146719> Chapter I (Hueycoatl)",
         value="N/A\n",
         inline=False,
     )
     embed.add_field(
-        name="<:ancient_hilt:1514809924515790889> Chapter II (Nex)",
-        value="<:1stplace:1514784685295927435> We Can Spoon, Voteyes2pvp\n",
+        name="<:hilt:1524823060308561960> Chapter II (Nex)",
+        value=f"{trophy_emojis[0]} We Can Spoon, Voteyes2pvp\n",
         inline=False,
     )
     embed.add_field(
-        name="<:warrior_helm:1514809925090545674> Chapter III (Barbarian Assault)",
-        value="<:1stplace:1514784685295927435> w1zzy, SithLordMeow, dnd5, ZaryteKnight, Pattaya\n",
+        name="<:whelm:1524823069401550958> Chapter III (Barbarian Assault)",
+        value=f"{trophy_emojis[1]} w1zzy, SithLordMeow, dnd5, ZaryteKnight, Pattaya\n",
         inline=False,
     )
     embed.add_field(
-        name="<:ghrazi_rapier:1514810083278852126> Chapter IV (Theatre of Blood)",
-        value="N/A\n",
+        name="<:rapier:1524823074866724915> Chapter IV (Theatre of Blood)",
+        value=f"{trophy_emojis[2]} N/A\n",
         inline=False,
     )
 
@@ -45,7 +45,7 @@ def highest_kcs(data, category_name):
 
         embed.add_field(
             name=f"{get_clean_name(key)} {data[key]['emote']}",
-            value=f"> {player_normie} - {metric_normie:,} {terminology}\n> <:ironman:1516279477657800724> {player_iron} - {metric_iron:,} {terminology}",
+            value=f"> {player_normie} - {metric_normie:,} {terminology}\n> <:iron:1524823076003643492> {player_iron} - {metric_iron:,} {terminology}",
             inline=False,
         )
 
@@ -111,11 +111,11 @@ def changelog(
 
     embed.add_field(
         name="Ranking",
-        value="<:1stplace:1514784685295927435> 1st place!"
+        value=f"{trophy_emojis[0]} 1st place!"
         if new_placement == 1
-        else "<:2ndplace:1514784692996669490> 2nd place"
+        else f"{trophy_emojis[1]} 2nd place"
         if new_placement == 2
-        else "<:3rdplace:1514784698692276426> 3rd place",
+        else f"{trophy_emojis[2]} 3rd place",
     )
 
     embed.add_field(
