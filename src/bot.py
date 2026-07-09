@@ -1,5 +1,4 @@
 import logging
-import coloredlogs
 import discord
 from discord.ext import commands
 
@@ -12,10 +11,6 @@ class Bot(commands.Bot):
         super().__init__(command_prefix="!", intents=discord.Intents.all())
 
         init_db()
-
-        coloredlogs.install(
-            level="DEBUG", fmt="%(asctime)s %(levelname)s %(name)s: %(message)s"
-        )
 
         self.SessionLocal = SessionLocal
         self.Activity = Activity

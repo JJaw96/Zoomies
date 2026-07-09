@@ -15,4 +15,3 @@ dependencies:
     - psycopg2-binary
     - wom.py
     - pyimgur
-    - coloredlogs
