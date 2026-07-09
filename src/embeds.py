@@ -38,16 +38,20 @@ def bingo_winners_embeds():
     # ----- First Bingo (2022) -----
     firstbingo_embed = discord.Embed(title="Unnamed Bingo (2022)")
     firstbingo_embed.add_field(
-        name="Winners",
+        name="",
         value=f"{trophy_emojis[1]} kitty neko, Lil xarp, deadlymoth, Sanguinestis",
         inline=False,
+    )
+    firstbingo_embed.add_field(
+        name="",
+        value="https://discord.com/channels/847313025919746129/847313574040305704/1011848338821357698",
     )
     firstbingo_embed.set_footer(text="August 24th, 2022")
 
     # ----- Candyland (2023) -----
     candyland_embed = discord.Embed(title="Candyland (2023)")
     candyland_embed.add_field(
-        name="Winners",
+        name="",
         value=f"{trophy_emojis[1]} Impressed, KlRBY, Helen Feller, Baked, A Cat Dad, Iron Coosa",
         inline=False,
     )
@@ -63,7 +67,7 @@ def bingo_winners_embeds():
     snakes_embed = discord.Embed(title="Snakes & Ladders (2023)")
 
     snakes_embed.add_field(
-        name="Winners",
+        name="",
         value=f"{trophy_emojis[1]} Lamhirh, Dopamemes, Adaboy23, Scarlet cat, Zueskin, Rotting,",
         inline=False,
     )
