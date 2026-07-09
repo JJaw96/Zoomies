@@ -43,6 +43,21 @@ class PBSubmissionCog(commands.Cog):
         finally:
             db.close()
 
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        current_channel = self.bot.get_channel(message.channel.id)
+
+        # TODO
+        submit_channel = self.bot.get_channel(1524787844852482048)
+
+        if current_channel != submit_channel:
+            return
+
+        if message.author.bot:
+            return
+
+        await message.delete()
+
     @app_commands.command(name="submit_a_pb", description="Submit a PB for an activity")
     @app_commands.describe(activity="Choose the activity to submit a PB for")
     @app_commands.autocomplete(activity=activity_autocomplete)
