@@ -66,7 +66,8 @@ class HighestKillcountCog(commands.Cog):
         ]
     )
     async def post_highest_kcs(self, interaction: discord.Interaction, category: int):
-
+        print(os.getenv("WOM_TOKEN"))
+        print(os.getenv("WOM_GROUP_ID"))
         # ------- Build the Highest KCs embed -------
         try:
             highest_kcs_embed = await highest_kc_service.build_highest_kcs_embed(
