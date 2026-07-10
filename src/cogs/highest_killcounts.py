@@ -17,7 +17,7 @@ class HighestKillcountCog(commands.Cog):
         self.logger.info("Highest KC cog initialized")
         self.check_category_needs_updating.start()
 
-    @tasks.loop(minutes=30)
+    @tasks.loop(minutes=20)
     async def check_category_needs_updating(self):
         self.logger.info("[Highest KC Cog] Checking if any categories need updating...")
         db: Session = next(get_db())
@@ -47,6 +47,7 @@ class HighestKillcountCog(commands.Cog):
             await message.edit(embed=new_embed)
             highest_kc_service.update_reprocess_record(message)
         db.commit()
+        db.close()
 
     @app_commands.command(
         name="post_highest_kcs",
