@@ -163,7 +163,7 @@ def bingo_winners_embeds():
         value="https://discord.com/channels/847313025919746129/847313574040305704/1304922777924665395\n",
     )
 
-    trickortreat.set_image(url="https://i.imgur.com/REqiiE2.png")
+    trickortreat.set_image(url="https://i.imgur.com/MZhVUfd.jpeg")
 
     duobingo = discord.Embed(title="Tale of Two Cats Duo Bingo (2025)")
 
